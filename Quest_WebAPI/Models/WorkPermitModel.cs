@@ -1,26 +1,9 @@
-﻿namespace WebAPI.Models
+namespace WebAPI.Models
 {
-    //public class WorkPermitModel
-    //{
-    //    public int InvoiceNumber { get; set; }
-    //    public List<Item> Items { get; set; }
-    //    public string Comments { get; set; } = "";
-
-    //    public List<string> Images { get; set; }
-    //}
-
     public class Item
     {
         public string Key { get; set; } = "";
         public string Value { get; set; } = "";
-        // public int Quantity { get; set; }
-    }
-
-    public class AnswerItem<Type> where Type : class
-    {
-        public string Key { get; set; } = "";
-        public Type Value { get; set; }
-        // public int Quantity { get; set; }
     }
 
     public class WorkPermitModel
@@ -98,6 +81,21 @@
         public string Title { get; set; }
         public string Answeredby { get; set; }
         public string Answer { get; set; }
+    }
+
+    public class SignatureSection
+    {
+        public string Title { get; set; }
+        public List<SignatureItem> SignatureItems { get; set; }
+    }
+
+    public class SignatureItem
+    {
+        public Item RequestedBy { get; set; }
+        public Item SignedBy { get; set; }
+        public Item SignedAt { get; set; }        
+        public Item Signature { get; set; }
+        public byte[] SignatureBytes { get; set; }
     }
 }
 
