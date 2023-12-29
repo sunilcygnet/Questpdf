@@ -1,5 +1,6 @@
-﻿
+
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
+using System.Reflection;
 using static QuestPDF.Helpers.Colors;
 
 namespace WebAPI.Models;
@@ -14,14 +15,58 @@ public static class SupplierWorkPermitData
             Checkbox = GetCheckboxesData(),
             Radios = GetRadiosData(),
             Textboxes = GetTextboxesData(),
-            WorkPermitData = GenerateRandomWokPermitItem()
+            WorkPermitData = GenerateRandomWokPermitItem(),
+            SignatureBoxes = GenerateSignatureData()
         };
+    }
+
+    private static List<SignatureSection> GenerateSignatureData()
+    {
+        return new List<SignatureSection> {
+            new SignatureSection
+            {
+                Title = "Signatures",
+                SignatureItems = GenerateSignatureItemsData()
+            }
+        };
+    }
+
+    private static List<SignatureItem> GenerateSignatureItemsData()
+    {
+        return new List<SignatureItem>
+        {
+            new SignatureItem
+            {
+                RequestedBy = new Item { Key = "Requested by", Value = "Sachin" },
+                SignedBy = new Item { Key = "Signed by", Value = "Riller" },
+                SignedAt = new Item { Key = "Date and Time", Value = "30/12/2023, 10:15" },
+                Signature = new Item { Key = "Signature", Value = "Signed by email" },
+                SignatureBytes = GetSignatureSampleImage("WebAPI.wwwroot.images.ram.png")
+            },
+            new SignatureItem
+            {
+                RequestedBy = new Item { Key = "Requested by", Value = "Marta" },
+                SignedBy = new Item { Key = "Signed by", Value = "Devin" },
+                SignedAt = new Item { Key = "Date and Time", Value = "04/12/2023, 11:00" },
+                Signature = new Item { Key = "Signature", Value = "Signed by email" },
+            },
+        };
+    }
+
+    private static byte[] GetSignatureSampleImage(string path)
+    {
+        Assembly assembly = Assembly.GetExecutingAssembly();
+        using Stream stream = assembly.GetManifestResourceStream(path);
+        using MemoryStream ms = new();
+        stream.CopyTo(ms);
+        return ms.ToArray();
     }
 
     private static List<TextboxSection> GetTextboxesData()
     {
         return new List<TextboxSection>
-        { new TextboxSection
+        {
+            new TextboxSection
             {
                 Title= "Title",
                 Answer = "Yes",
@@ -110,7 +155,7 @@ public static class SupplierWorkPermitData
     {
         return new Item { Key = "Item's name", Value = "Goggles (PPE)" };
     }
-    
+
     private static Item GetCheckboxQuestionAnswerData()
     {
         return new Item { Key = "Dangerous Substances/Mixtures", Value = "true" };
