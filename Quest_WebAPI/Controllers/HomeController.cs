@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
@@ -16,12 +16,12 @@ public class HomeController : ControllerBase
 
     private bool isShowFooter = true;
     private string strTitle = "Firmas";
-    public SupplierWorkPermitModel Model;
+    private SupplierWorkPermitModel Model;
 
     public HomeController(IWebHostEnvironment environment)
     {
         _environment = environment;
-        Model = SupplierWorkPermitData.GetWorkPermitData();//WPDocumentDataSource.GetWPDetails();
+        Model = SupplierWorkPermitData.GetWorkPermitData();
     }
 
     [HttpGet]
@@ -86,7 +86,7 @@ public class HomeController : ControllerBase
     #endregion
 
     #region ComposeDocument
-    public void ComposeDocument(IDocumentContainer container)
+    private void ComposeDocument(IDocumentContainer container)
     {
         container.Page(page =>
         {
@@ -139,30 +139,8 @@ public class HomeController : ControllerBase
 
             ///*column.Item().Element(ComposeImagesTable);*/  // Render images which will provided in list
 
-            //column.Item().Element(ComposeCommentTable);//Comment Content
+            column.Item().Element(ComposeSignatureSection);
 
-            //column.Item().Element(ComposeFirmsTable);//Firms Content
-
-            //column.Item().Row(row =>
-            //{
-            //    row.RelativeItem().Padding(5).Image(_environment.WebRootPath + "\\images\\image-1.png");
-            //    row.RelativeItem().Padding(5).Image(_environment.WebRootPath + "\\images\\image.png");
-            //});
-
-            //column.Item().Row(row =>
-            //{
-            //    row.RelativeItem().MaxWidth(250).Padding(5).Image(_environment.WebRootPath + "\\images\\image-2.png");
-
-            //});
-
-            //column.Item().Row(row =>
-            //{
-            //    row.RelativeItem().MaxWidth(250).Padding(5).Image(_environment.WebRootPath + "\\images\\image-3.png");
-
-            //});
-            //column.Item().Element(ComposeRiskIdentificationTable);// Risk identification Content
-
-            //column.Item().Element(ComposeImages);
 
             #region Methods
             //void ComposeTableSecurityMeasure(IContainer container)
@@ -506,6 +484,55 @@ public class HomeController : ControllerBase
         });
     }
 
+    private void ComposeSignatureSection(IContainer container)
+    {
+        container.Column(column =>
+        {
+            foreach (var item in Model.SignatureBoxes)
+            {
+                column.Item().Element(TitleCellStyle).Text(item.Title);
+
+                foreach (var signatureItem in item.SignatureItems)
+                {
+                    column.Item().PaddingTop(5).PaddingBottom(5).Row(r =>
+                    {
+                        r.RelativeItem().Border(1);
+                    });
+
+                    column.Item().Element(GrayCellStyle).Row(r =>
+                    {
+                        r.ConstantItem(170).Padding(5).Text(signatureItem.RequestedBy.Key).Bold();
+                        r.RelativeItem().Padding(5).Text(signatureItem.RequestedBy.Value);
+                    });
+                    column.Item().Element(TransparentCellStyle).Row(r =>
+                    {
+                        r.ConstantItem(170).Padding(5).Text(signatureItem.SignedBy.Key).Bold();
+                        r.RelativeItem().Padding(5).Text(signatureItem.SignedBy.Value);
+                    });
+                    column.Item().Element(GrayCellStyle).Row(r =>
+                    {
+                        r.ConstantItem(170).Padding(5).Text(signatureItem.SignedAt.Key).Bold();
+                        r.RelativeItem().Padding(5).Text(signatureItem.SignedAt.Value);
+                    });
+                    column.Item().Element(TransparentCellStyle).Row(r =>
+                    {
+                        r.ConstantItem(170).Padding(5).Text(signatureItem.Signature.Key).Bold();
+                        if (signatureItem.SignatureBytes?.Length > 0)
+                        {
+                            r.RelativeItem().Width(150).Border(1).Padding(5).Image(signatureItem.SignatureBytes);
+                        }
+                        else
+                        {
+                            r.RelativeItem().Padding(5).Text(signatureItem.Signature.Value);
+                        }
+                    });
+
+                }
+            }
+
+        });
+    }
+
     private void ComposeRadioSection(IContainer container)
     {
         container.Column(column =>
@@ -600,9 +627,10 @@ public class HomeController : ControllerBase
     {
         container.Layers(layers =>
         {
+
             layers.Layer().Canvas((canvas, size) =>
             {
-                DrawRoundedRectangle(Colors.White, false);
+                DrawRoundedRectangle("#F6FFED", false);
                 DrawRoundedRectangle("#B7EB8F", true);
 
                 void DrawRoundedRectangle(string color, bool isStroke)
@@ -611,11 +639,11 @@ public class HomeController : ControllerBase
                     {
                         Color = SKColor.Parse(color),
                         IsStroke = isStroke,
-                        StrokeWidth = 2,
+                        StrokeWidth = 1,
                         IsAntialias = true
                     };
 
-                    canvas.DrawRoundRect(0, 0, 75, size.Height, 20, 20, paint);
+                    canvas.DrawRoundRect(0, 0, 52, size.Height, 15, 15, paint);
                 }
             });
 
@@ -623,7 +651,7 @@ public class HomeController : ControllerBase
                 .PrimaryLayer()
                 .PaddingVertical(5)
                 .PaddingHorizontal(5)
-                .DefaultTextStyle(x => x.FontSize(12).FontColor("#52C41A"))
+                .DefaultTextStyle(x => x.FontSize(8).FontColor("#52C41A"))
                 .Text("APPROVED");
 
         });
@@ -647,7 +675,5 @@ public class HomeController : ControllerBase
         return container.BorderBottom(1).BorderColor(Colors.Transparent).PaddingVertical(5);
     }
     #endregion
-
-
 }
 
