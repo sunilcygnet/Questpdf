@@ -33,7 +33,9 @@
     <None Include="wwwroot\images\image-3.png" />
     <None Include="wwwroot\images\image.png" />
     <None Include="wwwroot\images\logo.png" />
-    <None Include="wwwroot\images\ram.png" />
+    <EmbeddedResource Include="wwwroot\images\ram.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <None Include="wwwroot\images\security-image-1.png" />
     <None Include="wwwroot\images\security-image-2.png" />
     <None Include="wwwroot\images\unChecked.png" />
