@@ -77,20 +77,22 @@
     {
         public Item QuestionAnswer { get; set; }
         public List<byte[]> Images { get; set; }
-        public string Comments { get; set; }
-        public string Answer { get; set; }
-        public string Answeredby { get; set; }
+        public Item Comments { get; set; }
+        public Item Answer { get; set; }
+        public Item Answeredby { get; set; }
     }
 
     public class CheckboxSection
     {
         public string Title { get; set; }
-        public Item Questionanswer { get; set; }
+        //public List<CheckboxItem> CheckboxItems { get; set; }
+        public List<Item> CheckboxItems { get; set; }
         public List<byte[]> Images { get; set; }
-        public string Comments { get; set; }
-        public string Answeredby { get; set; }
+        public Item Comments { get; set; }
+        public Item Answeredby { get; set; }
     }
 
+    
     public class TextboxSection
     {
         public string Title { get; set; }

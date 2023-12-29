@@ -135,6 +135,8 @@ public class HomeController : ControllerBase
 
             column.Item().Element(ComposeRadioSection);// SecurityMeasure Content
 
+            column.Item().Element(ComposeCheckboxSection); // Risk identification Content
+
             ///*column.Item().Element(ComposeImagesTable);*/  // Render images which will provided in list
 
             //column.Item().Element(ComposeCommentTable);//Comment Content
@@ -460,6 +462,50 @@ public class HomeController : ControllerBase
         });
     }
 
+    private void ComposeCheckboxSection(IContainer container)
+    {
+        container.Column(column =>
+        {
+
+            column.Item().Element(TitleCellStyle).Text(Model.Checkbox.Title);
+            column.Item().PaddingTop(5).PaddingBottom(5).Row(r =>
+            {
+                r.RelativeItem().Border(1);
+            });
+            foreach (var checkboxItemValue in Model.Checkbox.CheckboxItems)
+            {
+              column.Item().Element(TransparentCellStyle).Row(r =>
+                {
+                    if (checkboxItemValue.Value == "true")
+                    {
+                        r.ConstantItem(25).AlignLeft().MaxHeight(25).MaxWidth(25).Padding(5).AlignLeft().Image(_environment.WebRootPath + "\\images\\checked.png");//(checkboxItemValue.Questionanswer.Value);
+                    }
+                    else
+                    {
+                        r.ConstantItem(25).AlignLeft().MaxHeight(25).MaxWidth(25).Padding(5).AlignLeft().Image(_environment.WebRootPath + "\\images\\unChecked.png");
+                    }
+                    r.ConstantItem(230).Padding(4).Text(checkboxItemValue.Key);
+                });
+
+            }
+
+            column.Item().Element(GrayCellStyle).Row(r =>
+            {
+                r.ConstantItem(170).Padding(5).Text(Model.Checkbox.Comments.Key).Bold();
+                r.RelativeItem().Padding(5).Text(Model.Checkbox.Comments.Value);
+            });
+            column.Item().Element(TransparentCellStyle).Row(r =>
+            {
+                r.ConstantItem(170).Padding(5).Text(Model.Checkbox.Answeredby.Key).Bold();
+                r.RelativeItem().Padding(5).Text(Model.Checkbox.Answeredby.Value);
+            });
+
+            column.Item().PaddingTop(5).PaddingBottom(5).Element(ComposeImages);
+
+
+        });
+    }
+
     private void ComposeRadioSection(IContainer container)
     {
         container.Column(column =>
@@ -478,66 +524,26 @@ public class HomeController : ControllerBase
                     {
                         r.ConstantItem(170).Padding(5).Text(radioItem.QuestionAnswer.Key).Bold();
                         r.RelativeItem().Padding(5).Text(radioItem.QuestionAnswer.Value);
-                     });
+                    });
                     column.Item().Element(TransparentCellStyle).Row(r =>
                     {
-                        r.ConstantItem(170).Padding(5).Text("Answer").Bold();
-                        r.RelativeItem().Padding(5).Text(radioItem.Answer);
+                        r.ConstantItem(170).Padding(5).Text(radioItem.Answer.Key).Bold();
+                        r.RelativeItem().Padding(5).Text(radioItem.Answer.Value);
                     });
                     column.Item().Element(GrayCellStyle).Row(r =>
                     {
-                        r.ConstantItem(170).Padding(5).Text("Comments").Bold();
-                        r.RelativeItem().Padding(5).Text(radioItem.Comments);
+                        r.ConstantItem(170).Padding(5).Text(radioItem.Comments.Key).Bold();
+                        r.RelativeItem().Padding(5).Text(radioItem.Comments.Value);
                     });
                     column.Item().Element(TransparentCellStyle).Row(r =>
                     {
-                        r.ConstantItem(170).Padding(5).Text("Answered by").Bold();
-                        r.RelativeItem().Padding(5).Text(radioItem.Answeredby);
+                        r.ConstantItem(170).Padding(5).Text(radioItem.Answeredby.Key).Bold();
+                        r.RelativeItem().Padding(5).Text(radioItem.Answeredby.Value);
                     });
-                    
-                        column.Item().PaddingTop(5).PaddingBottom(5).Element(ComposeImages);
+
+                    column.Item().PaddingTop(5).PaddingBottom(5).Element(ComposeImages);
                 }
-                // Table
-                //column.Item().Table(table =>
-                //{
-                //    table.ColumnsDefinition(columns =>
-                //    {
-                //        columns.ConstantColumn(170);
-                //        columns.RelativeColumn();
-                //    });
 
-                //    foreach (var radioItem in item.RadioItems)
-                //    {
-                //        table.Cell().Element(GrayCellStyle).Text(radioItem.QuestionAnswer.Key).Bold();
-                //        table.Cell().Element(GrayCellStyle).Text(radioItem.QuestionAnswer.Value);
-
-
-                //        table.Cell().Element(TransparentCellStyle).Text("Answer").Bold();
-                //        table.Cell().Element(TransparentCellStyle).Text(radioItem.Answer);
-
-
-                //        table.Cell().Element(GrayCellStyle).Text("Comments").Bold();
-                //        table.Cell().Element(GrayCellStyle).Text(radioItem.Comments);
-
-                //        table.Cell().Element(TransparentCellStyle).Text("Answered by").Bold();
-                //        table.Cell().Element(TransparentCellStyle).Text(radioItem.Answeredby);
-
-                //        table.Cell().Border(1); table.Cell().Border(1);
-
-
-                //    }
-
-
-                //    static IContainer CellStyle(IContainer container)
-                //    {
-                //        return container.BorderBottom(1).BorderColor(Colors.Transparent).PaddingVertical(5);
-                //    }
-
-                //    static IContainer FieldCellStyle(IContainer container)
-                //    {
-                //        return container.DefaultTextStyle(x => x.SemiBold()).PaddingVertical(1).BorderBottom(0).BorderColor(Colors.Transparent);
-                //    }
-                //});
             }
 
         });

@@ -11,7 +11,7 @@ public static class SupplierWorkPermitData
         return new SupplierWorkPermitModel
         {
             Title = "Work Permit Detail",
-            Checkboxes = GetCheckboxesData(),
+            Checkbox = GetCheckboxesData(),
             Radios = GetRadiosData(),
             Textboxes = GetTextboxesData(),
             WorkPermitData = GenerateRandomWokPermitItem()
@@ -52,6 +52,29 @@ public static class SupplierWorkPermitData
         };
     }
 
+    private static CheckboxSection GetCheckboxesData()
+    {
+        return new CheckboxSection
+        {
+            Title = "Risk identification",
+            CheckboxItems = GetCheckboxItemsData(),
+            Images = GetImages.GetRadiosImagesData(),
+            Answeredby = new Item { Key = "Answered by", Value = "Sachin" },
+            Comments = new Item { Key = "Comments", Value = "The additional instructions detail specific steps that may not be included in the main instructions but are essential for achieving optimal results. By providing this additional information, the goal is to ensure that each stage of the process is understood and executed correctly." },
+        };
+            
+       
+    }
+
+    private static  List<Item> GetCheckboxItemsData()
+    {
+        return new List<Item> {
+          new Item { Key = "Dangerous Substances/Mixtures", Value = "true" },
+          new Item { Key = "Hazardous Substances", Value = "false" }
+
+        };
+    }
+
     private static List<RadioItem> GetRadiosItemsData()
     {
         return new List<RadioItem>
@@ -59,18 +82,18 @@ public static class SupplierWorkPermitData
             new RadioItem
             {
                 Images = GetImages.GetRadiosImagesData() ,
-                Answer  =   "Yes",
-                Answeredby = "Marta",
+                Answer  =   new Item{ Key= "Answer" ,Value="Yes" },
+                Answeredby = new Item{ Key= "Answered by" ,Value="Marta" },
                  QuestionAnswer = GetRadioQuestionAnswerData(),
-                Comments = "Radio comments 1",
+                Comments = new Item{ Key= "Comments" ,Value="The additional instructions detail specific steps that may not be included in the main instructions but are essential for achieving optimal results. By providing this additional information, the goal is to ensure that each stage of the process is understood and executed correctly." },
             },
             new RadioItem
             {
                 Images = null ,
-                Answeredby = "Sunil",
-                Answer  =   "No",
-                QuestionAnswer = GetRadioQuestionAnswerData2(),
-                Comments = "Radio comments 2",
+                 Answer  =   new Item{ Key= "Answer" ,Value="No" },
+                Answeredby = new Item{ Key= "Answered by" ,Value="Sunil" },
+                 QuestionAnswer = GetRadioQuestionAnswerData2(),
+                Comments = new Item{ Key= "Comments" ,Value="The additional instructions detail specific steps that may not be included in the main instructions but are essential for achieving optimal results. By providing this additional information, the goal is to ensure that each stage of the process is understood and executed correctly." },
             },
         };
     }
@@ -98,25 +121,7 @@ public static class SupplierWorkPermitData
     }
 
 
-    private static List<CheckboxSection> GetCheckboxesData()
-    {
-        return new List<CheckboxSection> {
-            new CheckboxSection {
-                Title= "Checkbox Section Title",
-                Images = GetImages.GetRadiosImagesData() ,
-                Answeredby = "Sachin",
-                Questionanswer = GetCheckboxQuestionAnswerData(),
-                Comments = "Checkbox Section comments 1",
-            },
-             new CheckboxSection {
-                Title= "Checkbox Section Title 2 ",
-                Images = GetImages.GetRadiosImagesData() ,
-                Answeredby = "Sunil",
-               Questionanswer = GetCheckboxQuestionAnswerData1(),
-                Comments = "Checkbox Section comments 2",
-            },
-        };
-    }
+    
 
     private static List<Item> GenerateRandomWokPermitItem()
     {

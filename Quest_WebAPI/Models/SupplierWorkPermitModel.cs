@@ -7,6 +7,6 @@ public class SupplierWorkPermitModel
 
    
     public List<RadioSection> Radios { get; set; }
-    public List<CheckboxSection> Checkboxes { get; set; }
+    public CheckboxSection Checkbox { get; set; }
     public List<TextboxSection> Textboxes { get; set; }
 }
