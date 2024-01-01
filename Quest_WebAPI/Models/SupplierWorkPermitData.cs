@@ -1,7 +1,4 @@
-
-using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using System.Reflection;
-using static QuestPDF.Helpers.Colors;
 
 namespace WebAPI.Models;
 
@@ -103,15 +100,15 @@ public static class SupplierWorkPermitData
         {
             Title = "Risk identification",
             CheckboxItems = GetCheckboxItemsData(),
-            Images = GetImages.GetRadiosImagesData(),
+            Images = SupplierWorkPermitImages.GetCheckBoxImagesData(),
             Answeredby = new Item { Key = "Answered by", Value = "Sachin" },
             Comments = new Item { Key = "Comments", Value = "The additional instructions detail specific steps that may not be included in the main instructions but are essential for achieving optimal results. By providing this additional information, the goal is to ensure that each stage of the process is understood and executed correctly." },
         };
-            
-       
+
+
     }
 
-    private static  List<Item> GetCheckboxItemsData()
+    private static List<Item> GetCheckboxItemsData()
     {
         return new List<Item> {
           new Item { Key = "Dangerous Substances/Mixtures", Value = "true" },
@@ -126,7 +123,7 @@ public static class SupplierWorkPermitData
         {
             new RadioItem
             {
-                Images = GetImages.GetRadiosImagesData() ,
+                Images = SupplierWorkPermitImages.GetRadiosImagesData(),
                 Answer  =   new Item{ Key= "Answer" ,Value="Yes" },
                 Answeredby = new Item{ Key= "Answered by" ,Value="Marta" },
                  QuestionAnswer = GetRadioQuestionAnswerData(),
@@ -165,9 +162,6 @@ public static class SupplierWorkPermitData
         return new Item { Key = "Hazardous Substances", Value = "false" };
     }
 
-
-    
-
     private static List<Item> GenerateRandomWokPermitItem()
     {
         return new List<Item>
@@ -186,7 +180,5 @@ public static class SupplierWorkPermitData
                     new Item{ Key ="Additional information", Value="-" },
 
                 };
-
-
     }
 }

@@ -1,44 +1,61 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Content Remove="wwwroot\images\image-1.png" />
-    <Content Remove="wwwroot\images\image-2.png" />
-    <Content Remove="wwwroot\images\image-3.png" />
-    <Content Remove="wwwroot\images\image.png" />
-    <Content Remove="wwwroot\images\ram.png" />
-    <Content Remove="wwwroot\images\security-image-1.png" />
-    <Content Remove="wwwroot\images\security-image-2.png" />
-    <Content Remove="wwwroot\images\unChecked.png" />
-    <Content Remove="wwwroot\logo.png" />
-  </ItemGroup>
+	<ItemGroup>
+		<Content Remove="wwwroot\images\1.png" />
+		<Content Remove="wwwroot\images\2.png" />
+		<Content Remove="wwwroot\images\3.png" />
+		<Content Remove="wwwroot\images\4.png" />
+		<Content Remove="wwwroot\images\5.png" />
+		<Content Remove="wwwroot\images\6.png" />
+		<Content Remove="wwwroot\images\ram.png" />
+		<Content Remove="wwwroot\images\unChecked.png" />
+		<Content Remove="wwwroot\logo.png" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.13" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.13" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="QuestPDF" Version="2023.12.1" />
 	</ItemGroup>
-	
-  <ItemGroup>
-    <None Include="wwwroot\images\image-1.png" />
-    <None Include="wwwroot\images\image-2.png" />
-    <None Include="wwwroot\images\image-3.png" />
-    <None Include="wwwroot\images\image.png" />
-    <None Include="wwwroot\images\logo.png" />
-    <EmbeddedResource Include="wwwroot\images\ram.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <None Include="wwwroot\images\security-image-1.png" />
-    <None Include="wwwroot\images\security-image-2.png" />
-    <None Include="wwwroot\images\unChecked.png" />
-  </ItemGroup>
+
+	<ItemGroup>
+		<None Include="wwwroot\images\2.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Include="wwwroot\images\3.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Include="wwwroot\images\4.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Include="wwwroot\images\1.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Include="wwwroot\images\logo.png" />
+		<EmbeddedResource Include="wwwroot\images\ram.png">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<None Include="wwwroot\images\5.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Include="wwwroot\images\6.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Include="wwwroot\images\unChecked.png">			
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="wwwroot\images\checked.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 
 </Project>
