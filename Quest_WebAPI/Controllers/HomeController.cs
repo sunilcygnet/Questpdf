@@ -131,7 +131,7 @@ public class HomeController : ControllerBase
             });
             foreach (var checkboxItemValue in Model.Checkbox.CheckboxItems)
             {
-                column.Item().Element(TransparentCellStyle).Row(r =>
+                column.Item().Element(TransparentCheckboxCellStyle).Row(r =>
                   {
                       if (checkboxItemValue.Value == "true")
                       {
@@ -141,7 +141,7 @@ public class HomeController : ControllerBase
                       {
                           r.ConstantItem(25).AlignLeft().MaxHeight(25).MaxWidth(25).Padding(5).AlignLeft().Image(unCheckBoxImage);
                       }
-                      r.ConstantItem(230).Padding(4).Text(checkboxItemValue.Key);
+                      r.ConstantItem(430).Padding(3).Text(checkboxItemValue.Key);
                   });
 
             }
@@ -345,6 +345,10 @@ public class HomeController : ControllerBase
     private static IContainer TransparentCellStyle(IContainer container)
     {
         return container.BorderBottom(1).BorderColor(Colors.Transparent).PaddingVertical(5);
+    }
+    private static IContainer TransparentCheckboxCellStyle(IContainer container)
+    {
+        return container.BorderBottom(1).BorderColor(Colors.Transparent).PaddingVertical(0);
     }
     #endregion
 }

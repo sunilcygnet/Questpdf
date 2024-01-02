@@ -112,8 +112,10 @@ public static class SupplierWorkPermitData
     {
         return new List<Item> {
           new Item { Key = "Dangerous Substances/Mixtures", Value = "true" },
-          new Item { Key = "Hazardous Substances", Value = "false" }
-
+          new Item { Key = "Hazardous Substances", Value = "false" },
+          new Item { Key = "Risks Due to Equipment/Facilities", Value = "false" },
+          new Item { Key = "Work on Control Elements (Levels, Relief Valves, Refrigerators, etc.)", Value = "true" },
+          new Item { Key = "Fire Permit Required", Value = "false" },
         };
     }
 
@@ -151,15 +153,6 @@ public static class SupplierWorkPermitData
     private static Item GetRadioQuestionAnswerData3()
     {
         return new Item { Key = "Item's name", Value = "Goggles (PPE)" };
-    }
-
-    private static Item GetCheckboxQuestionAnswerData()
-    {
-        return new Item { Key = "Dangerous Substances/Mixtures", Value = "true" };
-    }
-    private static Item GetCheckboxQuestionAnswerData1()
-    {
-        return new Item { Key = "Hazardous Substances", Value = "false" };
     }
 
     private static List<Item> GenerateRandomWokPermitItem()
